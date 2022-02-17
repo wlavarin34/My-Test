@@ -4,21 +4,27 @@ import List from "./components/List";
 import { useState, useRef } from "react";
 import axios, { Axios } from "axios";
 function App() {
+  
   const [upload, setUpload] = useState({ preview: '', data: '' });
   const [list, setLists] = useState([]);
-
-  var fileRef = useRef()
+  
+  //useRef for input values
+  var fileRef = useRef() // Not needed
   var numberRef = useRef()
 
   async function submitFile(e){
+    //prevent file from reloading when submitting
     e.preventDefault();
+    //Create Form data...
     let formData = new FormData()
     formData.append('file', upload.data)
     formData.append('number', numberRef.current.value)
+    // Get a Response from our server
     const response = await fetch('http://localhost:8080/upload/mostfrequent', {
       method: 'POST',
       body: formData,
     });
+    //Take the async data and add it to your useState
     response.json().then((result)=>{
       console.log(result);
     setLists(result);
@@ -26,7 +32,7 @@ function App() {
       console.log(err);
     });
   }
-
+//Detects changes on the file upload process
   const handleFileChange = (e) => {
     const txt = {
       preview: URL.createObjectURL(e.target.files[0]),
@@ -34,7 +40,7 @@ function App() {
     }
     setUpload(txt)
   }
-
+//JSX Syntax
   return (
     <div>
      <form className='container' >
