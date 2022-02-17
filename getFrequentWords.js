@@ -1,6 +1,6 @@
 const { get } = require("express/lib/response");
 var fs = require("fs");
-
+// Calculate Frequency here
 const getFrequency = (sentences,number) => {
     const sentencesGroup = {};
     var arr = []
@@ -8,7 +8,7 @@ const getFrequency = (sentences,number) => {
     const newSentences = sentences
       .toLowerCase()
       .match(/[a-zA-Z]+/g)
-  
+  //Organize all words into an object then push it to an array 
     newSentences.forEach((e,idx,array) => {
       !sentencesGroup[e] ? (sentencesGroup[e] = 1) : sentencesGroup[e]++;
       if(idx == array.length - 1){
